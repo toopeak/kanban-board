@@ -20,7 +20,7 @@ export function AddTaskModal({ isOpen, onClose, editTask }: AddTaskModalProps) {
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [priority, setPriority] => Priority>('medium')
+  const [priority, setPriority] = useState<Priority>('medium')
   const [status, setStatus] = useState<TaskStatus>('todo')
 
   // 编辑模式时填充表单
