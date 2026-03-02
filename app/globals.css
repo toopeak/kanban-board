@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 全局样式 */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* 拖拽时的样式 */
+.dragging {
+  opacity: 0.5;
+  transform: rotate(2deg);
+}
+
+/* 看板列样式 */
+.column {
+  min-height: 200px;
+  transition: background-color 0.2s ease;
+}
+
+.column.drag-over {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* 任务卡片样式 */
+.task-card {
+  transition: all 0.2s ease;
+  cursor: grab;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.task-card:active {
+  cursor: grabbing;
+}
+
+/* 优先级标签 */
+.priority-high {
+  background-color: #FEE2E2;
+  color: #DC2626;
+}
+
+.priority-medium {
+  background-color: #FEF3C7;
+  color: #D97706;
+}
+
+.priority-low {
+  background-color: #D1FAE5;
+  color: #059669;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* 动画 */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
