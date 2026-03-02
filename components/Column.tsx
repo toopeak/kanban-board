@@ -1,6 +1,7 @@
 'use client'
 
 import { Droppable, Draggable } from '@hello-pangea/dnd'
+import { Plus } from 'lucide-react'
 import { TaskCard } from './TaskCard'
 import type { Task, TaskStatus } from '@/types/task'
 
@@ -13,19 +14,33 @@ interface ColumnProps {
   title: string
   tasks: Task[]
   color: string
+  icon: React.ReactNode
   onEdit: (task: Task) => void
+  onAddTask: () => void
 }
 
-export function Column({ id, title, tasks, color, onEdit }: ColumnProps) {
+export function Column({ id, title, tasks, color, icon, onEdit, onAddTask }: ColumnProps) {
   return (
-    <div className="flex flex-col h-full">
+    <div className={`flex flex-col h-full rounded-2xl border-2 ${color}`}>
       {/* 列标题 */}
-      <div className={`${color} rounded-t-lg px-4 py-3`}>
+      <div className="px-4 py-3 border-b border-inherit">
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-gray-800">{title}</h3>
-          <span className="bg-white/60 text-gray-700 text-sm px-2 py-0.5 rounded-full font-medium">
-            {tasks.length}
-          </span>
+          <div className="flex items-center gap-2">
+            {icon}
+            <h3 className="font-semibold text-gray-800">{title}</h3>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="bg-white/80 text-gray-700 text-sm px-2.5 py-1 rounded-lg font-bold shadow-sm">
+              {tasks.length}
+            </span>
+            <button
+              onClick={onAddTask}
+              className="p-1.5 hover:bg-white/50 rounded-lg transition-colors"
+              title="添加任务"
+            >
+              <Plus size={18} className="text-gray-600" />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -35,8 +50,8 @@ export function Column({ id, title, tasks, color, onEdit }: ColumnProps) {
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className={`flex-1 bg-gray-100/50 rounded-b-lg p-3 min-h-[300px] transition-colors ${
-              snapshot.isDraggingOver ? 'bg-gray-200' : ''
+            className={`flex-1 p-3 overflow-y-auto transition-colors ${
+              snapshot.isDraggingOver ? 'bg-white/50' : ''
             }`}
           >
             <div className="space-y-3">
@@ -47,7 +62,7 @@ export function Column({ id, title, tasks, color, onEdit }: ColumnProps) {
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      className={`group ${snapshot.isDragging ? 'opacity-50' : ''}`}
+                      className={`${snapshot.isDragging ? 'opacity-50 rotate-2' : ''}`}
                       style={provided.draggableProps.style}
                     >
                       <TaskCard task={task} onEdit={onEdit} />
@@ -60,8 +75,14 @@ export function Column({ id, title, tasks, color, onEdit }: ColumnProps) {
 
             {/* 空状态提示 */}
             {tasks.length === 0 && (
-              <div className="text-center py-8 text-gray-400 text-sm">
-                拖拽任务到此处
+              <div className="text-center py-12 text-gray-400">
+                <p className="text-sm">暂无任务</p>
+                <button
+                  onClick={onAddTask}
+                  className="mt-2 text-sm text-blue-600 hover:text-blue-700 font-medium"
+                >
+                  + 添加任务
+                </button>
               </div>
             )}
           </div>

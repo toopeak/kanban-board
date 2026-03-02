@@ -103,6 +103,7 @@ export const useKanbanStore = create<KanbanState>()(
           description: input.description,
           priority: input.priority,
           status: input.status || 'todo',
+          assignee: input.assignee,
           createdAt: new Date(),
         }
         set((state) => ({

@@ -9,6 +9,15 @@ export type Priority = 'high' | 'medium' | 'low'
 export type TaskStatus = 'todo' | 'in-progress' | 'done'
 
 /**
+ * 任务执行者
+ */
+export interface Assignee {
+  id: string
+  name: string
+  avatar?: string
+}
+
+/**
  * 任务类型定义
  */
 export interface Task {
@@ -17,6 +26,7 @@ export interface Task {
   description: string           // 任务描述
   priority: Priority            // 优先级
   status: TaskStatus            // 当前状态
+  assignee?: Assignee           // 执行者/负责人（可选）
   createdAt: Date               // 创建时间
   completedAt?: Date            // 完成时间（可选）
 }
@@ -38,6 +48,7 @@ export interface CreateTaskInput {
   description: string
   priority: Priority
   status?: TaskStatus
+  assignee?: Assignee
 }
 
 /**
@@ -48,4 +59,5 @@ export interface UpdateTaskInput {
   description?: string
   priority?: Priority
   status?: TaskStatus
+  assignee?: Assignee
 }
